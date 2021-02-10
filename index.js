@@ -28,7 +28,10 @@ app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render('home');
-})
+});
+
+
+
 
 
 app.listen(port, () => {
