@@ -1,0 +1,25 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "My Version of the Yelp-Camp Project from 'The Web Developer Bootcamp 2021' by Colt Steele",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vynex/yelp-camp.git"
+  },
+  "author": "Kushagra Shukla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vynex/yelp-camp/issues"
+  },
+  "homepage": "https://github.com/Vynex/yelp-camp#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.11.15"
+  }
+}
