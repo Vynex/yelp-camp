@@ -4,6 +4,9 @@ const campgroundSchema = new mongoose.Schema({
     title: {
         type: String
     },
+    image: {
+        type: String
+    },
     description: {
         type: String
     },

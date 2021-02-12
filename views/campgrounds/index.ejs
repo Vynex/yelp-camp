@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Page for Yelpcamp</title>
+    <%- include('../partials/head', {title: 'Index Page for YelpCamp'}); %>
 </head>
 <body>
-    <h2>All Campgrounds</h2>
-    <ul>
-        <%  for (camp of camps) { %>
-            <li><a href="/campgrounds/<%= camp._id %> "><%= camp.title %></a></li>
-        <% } %> 
-    </ul>
+    <header>
+        <%- include('../partials/navbar'); %>
+    </header>
+    
+    <main>
+        <div class="container">
+            <h2>All Campgrounds</h2>
+            <ul>
+                <%  for (camp of camps) { %>
+                <li><a href="/campgrounds/<%= camp._id %> "><%= camp.title %></a></li>
+                <% } %> 
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>    
 </body>
 </html>

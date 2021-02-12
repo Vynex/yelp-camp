@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Campground</title>
+    <%- include('../partials/head', { title: 'Edit Campground' }); %>
 </head>
 <body>
-    <h2>Edit Campground</h2>
+    <header>
+        <%- include('../partials/navbar'); %>
+    </header>
 
-    <form action="/campgrounds/<%= camp.id %>?_method=PUT" method="POST">
-        <label for="title">Campground Title</label>
-        <input type="text" name="title" id="title">
+    <main>
+        <div class="container">
+            <h2>Edit Campground</h2>
 
-        <label for="location">Campground Location</label>
-        <input type="text" name="location" id="location">
+            <form action="/campgrounds/<%= camp.id %>?_method=PUT" method="POST">
+                <label for="title">Campground Title</label>
+                <input type="text" name="title" id="title">
 
-        <button type="submit">Edit</button>
-    </form>
+                <label for="location">Campground Location</label>
+                <input type="text" name="location" id="location">
 
-    <a href="/campgrounds/<%= camp._id %>">Cancel</a>
+                <button type="submit">Edit</button>
+            </form>
+
+            <a href="/campgrounds/<%= camp._id %>">Cancel</a>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 </body>
 </html>

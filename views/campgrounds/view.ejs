@@ -1,26 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Campground</title>
+    <%- include('../partials/head', {title: 'View Campground'}); %>
 </head>
 <body>
-    <h2><%= camp.title %></h2>
-    <p><%= camp.location %></p>
+    <header>
+        <%- include('../partials/navbar'); %>
+    </header>
 
-    <div>
-        <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
-            <button type="submit">Delete</button>
-        </form>
-        <a href="/campgrounds/<%= camp._id %>/edit">Edit</a>
-    </div>
+    <main>
+        <div class="container">
+            <h2><%= camp.title %></h2>
+            <p><%= camp.location %></p>
+            <img src="<%= camp.image %>" alt="camp image">
+            <p><%= camp.description %></p>
 
-    <div>
-        <a href="/campgrounds">All Campgrounds</a>
-    </div>
+            <div>
+                <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="/campgrounds/<%= camp._id %>/edit">Edit</a>
+            </div>
 
+            <div>
+                <a href="/campgrounds">All Campgrounds</a>
+            </div>
+        </div>
+    </main>
 
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
 </body>
 </html>
