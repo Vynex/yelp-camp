@@ -10,20 +10,28 @@
 
     <main>
         <div class="container">
-            <h2><%= camp.title %></h2>
-            <p><%= camp.location %></p>
-            <img src="<%= camp.image %>" alt="camp image">
-            <p><%= camp.description %></p>
+            <div class="col-6 offset-3">
+                <div class="card mb-3">
+                    <img src="<%= camp.image %>" class="card-img-top" alt="...">
 
-            <div>
-                <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
-                    <button type="submit">Delete</button>
-                </form>
-                <a href="/campgrounds/<%= camp._id %>/edit">Edit</a>
-            </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= camp.title %></h5>
+                        <p class="card-text"><%= camp.description %></p>
+                    </div>
 
-            <div>
-                <a href="/campgrounds">All Campgrounds</a>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-muted"><%= camp.location %></li>
+                        <li class="list-group-item">₹<%= camp.price %> /night</li>
+                    </ul>
+
+                    <div class="card-body">
+                        <a class="card-link btn btn-info" href="/campgrounds/<%= camp._id %>/edit">Edit</a>
+
+                        <form class="d-inline" action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

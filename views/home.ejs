@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yelp-Camp Home</title>
+    <%- include('partials/head', { title: 'YelpCamp Home'}); %>
 </head>
 <body>
-    <h1>Yelp-Camp Homepage</h1>
+    <header>
+        <%- include('partials/navbar'); %> 
+    </header>
+
+    <main>
+        <div class="container">
+            <h1>Yelp-Camp Homepage</h1>
+        </div>
+    </main>
+
+    <footer>
+        <%- include('partials/footer'); %>
+    </footer>
 </body>
 </html>

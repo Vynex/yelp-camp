@@ -17,10 +17,16 @@ body {
 
 main {
     flex: 1;
-    padding-top: 8vh;
+    padding-top: 12vh;
+    padding-bottom: 3vh;
 }
 
 .container {
     width: 80%;
     margin: 0 auto;
+}
+
+.edit {
+    display: flex;
+    flex-direction: column;
 }
