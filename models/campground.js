@@ -27,7 +27,7 @@ const campgroundSchema = new mongoose.Schema({
 });
 
 
-campSchema.post('findOneAndDelete', async function (doc) {
+campgroundSchema.post('findOneAndDelete', async function (doc) {
     if (doc) {
         await Review.deleteMany({
             _id: {
