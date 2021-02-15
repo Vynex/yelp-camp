@@ -19,10 +19,14 @@ mongoose.connection.once('open', () => {
 
 const methodOverride = require('method-override');
 const Joi = require('joi');
-const { campSchema } = require('./schemas');
-const Campground = require('./models/campground');
+
+const { campSchema, reviewSchema } = require('./schemas');
+
 const catchAsync = require('./utils/CatchAsync');
 const HandledError = require('./utils/HandledError');
+
+const Review = require('./models/review');
+const Campground = require('./models/campground');
 
 
 app.set('view engine', 'ejs');
@@ -44,6 +48,15 @@ const validateCamp = (req, res, next) => {
     }
 };
 
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate (req.body);
+    if (error) {
+        const message = error.details.map (el => el.message).join(',');
+        throw new HandledError (400, message);
+    } else {
+        next();
+    }
+}
 
 app.get('/', (req, res) => {
     res.render('home');
@@ -62,12 +75,8 @@ app.get('/campgrounds/new', (req, res) => {
 
 app.post('/campgrounds/new', validateCamp, catchAsync ( async (req, res) => {
     const { title, location, image, price, description } = req.body.camp;
-    console.log('req.body');
-    console.log(req.body);
-    console.log(title);
     const camp = Campground.create({ title, location, image, price, description });
-    console.log('camp');
-    console.log(camp);
+
     await camp.save();
 
     res.redirect(`/campgrounds/${ camp._id }`);
@@ -75,7 +84,7 @@ app.post('/campgrounds/new', validateCamp, catchAsync ( async (req, res) => {
 
 app.get('/campgrounds/:id', catchAsync (async (req, res) => {
     const { id } = req.params;
-    const camp = await Campground.findById(id);
+    const camp = await Campground.findById(id).populate('reviews');
 
     res.render('campgrounds/view', { id, camp });
 }));
@@ -102,6 +111,30 @@ app.delete('/campgrounds/:id', catchAsync (async (req, res) => {
     res.redirect('/campgrounds');
 }));
 
+
+app.post('/campgrounds/:id/reviews', validateReview, catchAsync (async (req, res) => {
+    const { id } = req.params;
+    const camp = await Campground.findById (id);
+
+    const { body, rating } = req.body.review;
+    const review = new Review ( { body, rating } );
+    
+    camp.reviews.push (review);    
+
+    await review.save();
+    await camp.save();
+
+    res.redirect(`/campgrounds/${ camp._id }`);
+}));
+
+app.delete('/campgrounds/:id/reviews/:rid', catchAsync (async (req, res) => {
+    const { id, rid } = req.params;
+
+    await Campground.findByIdAndUpdate(id, { $pull: { reviews: rid } });
+    await Review.findByIdAndDelete(rid);
+    
+    res.redirect(`/campgrounds/${id}`);
+}));
 
 app.all('*', (req, res, next) => {
     next (new HandledError (404, 'Resource Not Found'));
