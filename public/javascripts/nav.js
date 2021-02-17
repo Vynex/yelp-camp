@@ -3,7 +3,6 @@ const navLinks = document.querySelectorAll('.collapsable li');
 const burger = document.querySelector('.burger');
 
 
-
 burger.addEventListener('click', () => {
     nav.classList.toggle('navActive');
 

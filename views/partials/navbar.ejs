@@ -8,6 +8,20 @@
             <li><a href="/campgrounds/">Campgrounds</a></li>
             <li><a href="/campgrounds/new">New Campground</a></li>
         </ul>
+
+        <% if (!currentUser) { %>
+
+        <ul class="navlink auth">
+            <li><a href="/login" class="btn btn-outline-light" id="clr-black">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        </ul>
+        <% } else { %>
+
+        <ul class="navlink auth">
+            <li><a href="/logout" class="btn btn-outline-light" id="clr-black">Logout</a></li>
+        </ul>
+        <% } %>
+
     
         <div class="burger">
             <span class="l1"></span>

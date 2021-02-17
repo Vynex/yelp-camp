@@ -1,6 +1,7 @@
 nav {
     background-color: #212529;
     display: flex;
+    /* justify-content: space-between; */
     align-items: center;
 
     width: 100%;
@@ -17,6 +18,10 @@ nav {
     font-weight: 600 !important;
 }
 
+.collapsable {
+    flex: 1;
+}
+
 .navlink {
     display: flex;
     align-items: center;
@@ -26,10 +31,23 @@ nav {
     height: 100%;
 }
 
+#clr-black {
+    transition: all 200ms ease;
+}
+#clr-black:hover {
+    color: #000000 !important;
+}
+
+.auth {
+    display: flex;
+    
+}
+
 .navlink li {
     display: inline-block;
     padding: 0 15px;
 }
+
 
 .navlink a {
     font-family: "Montserrat";
@@ -63,7 +81,11 @@ nav {
         justify-content: space-between;
     }
 
-    .collapsable{
+    .navlink li {
+        padding: .2rem;
+    }
+
+    .collapsable {
         position: absolute;
         right: 0;
         height: 92vh;
@@ -77,11 +99,11 @@ nav {
         transition: transform 0.3s ease-in;
     }
 
-    .collapsable li{
+    .collapsable li {
         padding: 8vh 10px;
     }
 
-    .collapsable li{
+    .collapsable li {
         text-align: center;
         opacity: 0;
     }
