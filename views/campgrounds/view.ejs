@@ -24,7 +24,7 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item text-muted"><%= camp.location %></li>
                             <li class="list-group-item">Posted by, <%= camp.author.username %></li>
-                            <li class="list-group-item">₹<%= camp.price %>/night</li>
+                            <li class="list-group-item">₹ <%= camp.price %> / night</li>
                         </ul>
 
                         <% if (currentUser && camp.author.equals(currentUser._id)) { %> 
@@ -63,7 +63,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5 class="card-title">Rating, <%= review.rating %> &#9733;</h5>
-                            <h6 class="card-title">Posted by, <%= review.author.username %></h6>
+                            <h6 class="card-title text-secondary">Posted by, <%= review.author.username %></h6>
 
                             <p class="card-text"><%= review.body %></p>
 

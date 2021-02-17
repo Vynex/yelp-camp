@@ -16,8 +16,6 @@ router.post('/', isLoggedIn, validateReview, catchAsync (async (req, res) => {
     const { body, rating } = req.body.review;
     const review = new Review ({ body, rating });
     review.author = req.user._id;
-    console.log('Review, ', review);
-    console.log('req', req.user);
     
     camp.reviews.push (review);    
 

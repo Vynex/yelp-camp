@@ -61,7 +61,6 @@ router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync (async (req, res) => {
 
 router.put('/:id', isLoggedIn, isAuthor, catchAsync (async (req, res) => {
     const { id } = req.params;
-    console.log(req.body.camp);
     const { title, location, image, price, description } = req.body.camp;
     await Campground.findByIdAndUpdate(id, { title, location, image, price, description });
     
