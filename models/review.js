@@ -6,6 +6,10 @@ const reviewSchema = new monogose.Schema ({
     },
     body: {
         type: String,
+    },
+    author: {
+        type: monogose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 

@@ -58,21 +58,22 @@ app.use(session(sessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 const authenticateUser = async (username, password, done) => {
-    const user = await User.findOne({ username })
-    const message = 'Invalid Username or Password'
+    const user = await User.findOne({ username });
+    const message = 'Invalid Username or Password';
     if (user == null) {
-      return done(null, false, { message })
+      return done(null, false, { message });
     }
 
     try {
       if (await bcrypt.compare(password, user.password)) {
-        return done(null, user)
+        return done(null, user);
       } else {
-        return done(null, false, { message })
+        return done(null, false, { message });
       }
     } catch (e) {
-      return done(e)
+      return done(e);
     }
 }
 passport.use(new LocalStrategy({ usernameField: 'username' }, authenticateUser))
