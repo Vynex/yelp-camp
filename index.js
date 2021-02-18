@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -27,7 +31,7 @@ const flash = require('connect-flash');
 const HandledError = require('./utils/HandledError');
 
 
-const passport = require('./passport');
+const passport = require('./configs/passport');
 
 
 app.set('view engine', 'ejs');

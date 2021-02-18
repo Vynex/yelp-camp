@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 const catchAsync = require('../utils/CatchAsync');
-const passport = require('../passport');
+const passport = require('../configs/passport');
 const users = require('../controllers/users');
 
 
