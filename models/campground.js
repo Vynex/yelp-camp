@@ -18,6 +18,17 @@ const campgroundSchema = new mongoose.Schema({
     location: {
         type: String
     },
+    geometry: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
     images: [imageSchema],
     price: {
         type: Number
