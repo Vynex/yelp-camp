@@ -14,32 +14,41 @@ mongoose.connection.once('open', () => {
 
 
 const cities = require('./cities');
-const { places, descriptors } = require('./seedHelpers');
+const { places, descriptors, images } = require('./seedHelpers');
 
 const seed = async() => {
     await Campground.deleteMany({});
     
     for(let i = 0; i != 50; i++) {
-        const random1000 =  Math.floor(Math.random() * 1000);
+        const randomCity =  Math.floor(Math.random() * 528);
         const price = Math.floor(Math.random() * 2500) + 750;
         const randomArr = arr => arr[Math.floor(Math.random() * arr.length)];
+        const randomImg1 = randomArr(images);
+        const randomImg2 = randomArr(images);
 
         const camp = new Campground ({
             title: `${randomArr(descriptors)} ${randomArr(places)}`,
             author: '602cddbcaf3da431049db755',
-            location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            location: `${cities[randomCity].city}, ${cities[randomCity].state}`,
+            description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error dolores voluptas maxime et in est, eligendi, omnis a esse enim amet soluta quos, cum consequuntur! Obcaecati dignissimos distinctio hic deleniti!',
+            price,
             images: [
                 {
-                    url: 'https://res.cloudinary.com/vinexilla/image/upload/v1613652333/Yelp-Camp/rhcdqqvrtwqnqf1cj6lu.jpg',
-                    filename: 'Yelp-Camp/rhcdqqvrtwqnqf1cj6lu'
+                    url: randomImg1.url,
+                    filename: randomImg1.filename
                 },
                 {
-                    url: 'https://res.cloudinary.com/vinexilla/image/upload/v1613652335/Yelp-Camp/nru2fmsyjolbkuydtajv.jpg',
-                    filename: 'Yelp-Camp/nru2fmsyjolbkuydtajv'
+                    url: randomImg2.url,
+                    filename: randomImg2.filename
                 }
             ],
-            description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error dolores voluptas maxime et in est, eligendi, omnis a esse enim amet soluta quos, cum consequuntur! Obcaecati dignissimos distinctio hic deleniti!',
-            price
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    cities[randomCity].longitude,
+                    cities[randomCity].latitude,
+                ]
+            }
         })
         await camp.save();
     }

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../partials/head', { title: 'Edit Campground' }); %>
 </head>
+
 <body>
     <header>
         <%- include('../partials/navbar'); %>
@@ -11,73 +13,84 @@
     <main>
         <div class="container">
             <%- include('../partials/alert') %>
-            <h2 class="text-center">Edit Campground</h2>
-            <div class="col-6 offset-3 my-5">
+                <h2 class="text-center title">Edit Campground</h2>
+                <div class="col-md-6 offset-md-3 my-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/campgrounds/<%= camp.id %>?_method=PUT" method="POST" novalidate
+                                class="validated-form" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label class="form-label" for="title">Title</label>
+                                    <input class="form-control" type="text" id="title" name="camp[title]"
+                                        value="<%= camp.title %>" required>
+                                    <div class="valid-feedback">
+                                        Looks Good!
+                                    </div>
+                                </div>
 
-                <form action="/campgrounds/<%= camp.id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label" for="title">Title</label>
-                        <input class="form-control" type="text" id="title" name="camp[title]" value="<%= camp.title %>" required>
-                        <div class="valid-feedback">
-                            Looks Good!
+                                <div class="mb-3">
+                                    <label class="form-label" for="location">Location</label>
+                                    <input class="form-control" type="text" id="location" name="camp[location]"
+                                        value="<%= camp.location %>" required>
+                                    <div class="valid-feedback">
+                                        Looks Good!
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label mb-3" for="price">Campground Price</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="price-label">₹</span>
+                                        <input type="number" class="form-control" id="price" placeholder="0.00"
+                                            aria-label="price" aria-describedby="price-label" name="camp[price]"
+                                            value="<%= camp.price %>" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="description">Description</label>
+                                    <textarea class="form-control" type="text" id="description" name="camp[description]"
+                                        rows="3" required><%= camp.description%></textarea>
+                                    <div class="valid-feedback">
+                                        Looks Good!
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">Add Images</label>
+                                        <input class="form-control" type="file" name="camp[image]" id="image" multiple>
+                                    </div>
+                                    <div class="valid-feedback">
+                                        Looks Good!
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <% camp.images.forEach(function(image, i) { %>
+                                        <image src="<%= image.thumbnail %>" class="img-thumbnail" alt="">
+                                            <div class="form-check-inline delete">
+                                                <input type="checkbox" id="image-<%=i%>" name="deleteImages[]"
+                                                    value="<%= image.filename %>">
+                                            </div>
+                                        <label class="title" for="image-<%=i%>">Delete?</label>
+                                        <% })%>
+                                </div>
+
+                                <div class="mb-3">
+                                    <button class="btn btn-outline-warning">Update Campground</button>
+                                </div>
+                            </form>
+
+                            <a href="/campgrounds/<%= camp._id %>">Cancel</a>
+
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="location">Location</label>
-                        <input class="form-control" type="text" id="location" name="camp[location]" value="<%= camp.location %>" required>
-                        <div class="valid-feedback">
-                            Looks Good!
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label mb-3" for="price">Campground Price</label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="price-label">₹</span>
-                            <input type="number" class="form-control" id="price" placeholder="0.00" aria-label="price" aria-describedby="price-label" name="camp[price]" value="<%= camp.price %>" required>
-                            <div class="valid-feedback">
-                                Looks Good!
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="mb-3">
-                        <label class="form-label" for="description">Description</label>
-                        <textarea class="form-control" type="text" id="description" name="camp[description]" rows="3" required><%= camp.description%></textarea>
-                        <div class="valid-feedback">
-                            Looks Good!
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Add Images</label>
-                            <input class="form-control" type="file" name="camp[image]" id="image" multiple>
-                        </div>
-                        <div class="valid-feedback">
-                            Looks Good!
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <% camp.images.forEach(function(image, i) {  %>
-                        <image src="<%= image.thumbnail %>" class="img-thumbnail" alt="">
-                        <div class="form-check-inline">
-                            <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%= image.filename %>">
-                        </div>
-                        <label for="image-<%=i%>">Delete?</label>
-                        <% })%>
-                    </div>
-
-                    <div class="mb-3">
-                        <button class="btn btn-warning">Update Campground</button>
-                    </div>
-                </form>
-
-                <a href="/campgrounds/<%= camp._id %>">Cancel</a>
-
-            </div>
+                </div>
         </div>
     </main>
 
@@ -85,4 +98,5 @@
         <%- include('../partials/footer'); %>
     </footer>
 </body>
+
 </html>

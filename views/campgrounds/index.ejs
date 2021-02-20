@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('../partials/head', {title: 'Index Page for YelpCamp'}); %>
+    <%- include('../partials/head', {title: 'All Campgrounds'}); %>
 </head>
 <body>
     <header>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css">
         <%- include('../partials/navbar'); %>
     </header>
     
     <main>
         <div class="container">
             <%- include('../partials/alert') %>
-            <h2>All Campgrounds</h2>
+            <div id="cluster-map"></div>
+            <h2 class="title mt-5 mb-3">All Campgrounds</h2>
                 <%  for (camp of camps) { %>
-                    <div class="card" mb-3>
+                    <div class="card mb-5">
                         <div class="row">
                             <div class="col-md-4">
+                                <% if(camp.images.length) {%>
                                 <img class="img-fluid" alt="camp image" src="<%= camp.images[0].url %>">
+                                <% } else {%>
+                                <img class="img-fluid" alt="default image"
+                                    src="https://res.cloudinary.com/vinexilla/image/upload/v1613652333/Yelp-Camp/rhcdqqvrtwqnqf1cj6lu.jpg">
+                                <% } %>
                             </div>
 
                             <div class="col-md-8">
@@ -26,7 +34,8 @@
                                     <p class="card-text">
                                         <small class="text-muted"><%= camp.location%></small>
                                     </p>
-                                    <a class="btn btn-info" href="/campgrounds/<%=camp._id%>">View <%=camp.title%></a>
+
+                                    <a class="btn btn-outline-secondary" href="/campgrounds/<%=camp._id%>">View <%=camp.title%></a>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +45,14 @@
     </main>
 
     <footer>
+
         <%- include('../partials/footer'); %>
+        <script>
+            const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+            const campgrounds = { features: <%- JSON.stringify(camps) %>}
+        </script>
+        <script src="/javascripts/clusterMap.js"></script>
+        
     </footer>    
 </body>
 </html>

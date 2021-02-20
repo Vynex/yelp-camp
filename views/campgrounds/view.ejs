@@ -5,6 +5,8 @@
 </head>
 <body>
     <header>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css">
         <%- include('../partials/navbar'); %>
     </header>
 
@@ -65,12 +67,13 @@
                     </div>
                 </div>
                 <div class="col-4">
+                    <div id="map"></div>
 
                     <% if (currentUser) { %> 
-                    <h2>Leave a Review</h2>
+                    <h2 class="title">Leave a Review</h2>
                     <form class="mb-3 validated-form" action="/campgrounds/<%= camp.id %>/reviews" method="POST" novalidate>
                         <div class="mb-3">
-                            <fieldset class="starability-basic">
+                            <fieldset class="starability-basic title">
                                 <p>Rating</p>
                                 <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No Rating." />
                                 <input type="radio" id="first-rate1" name="review[rating]" value="1" />
@@ -118,7 +121,14 @@
     </main>
 
     <footer>
+        
         <%- include('../partials/footer'); %>
+        <script>
+            const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+            const campground = <%- JSON.stringify(camp) %>
+        </script>
+        <script src="/javascripts/showMap.js"></script> 
+
     </footer>
 </body>
 </html>

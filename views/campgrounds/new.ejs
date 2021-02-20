@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('../partials/head', { title: 'New Campground' }); %>
 </head>
+
 <body>
     <header>
         <%- include('../partials/navbar'); %>
@@ -11,59 +13,69 @@
     <main>
         <div class="container">
             <%- include('../partials/alert') %>
-            <h2 class="text-center">New Campground</h1>
+                <h2 class="text-center title">New Campground</h1>
 
-            <div class="col-6 offset-3 my-5">
-                <form action="/campgrounds/new" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label class="form-label" for="title">Title</label>
-                        <input class="form-control" type="text" id="title" name="camp[title]" required>
-                        <div class="valid-feedback">
-                            Looks Good!
-                        </div>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label mb-3" for="price">Rate</label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="price-label">₹</span>
-                            <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price" aria-describedby="price-label" name="camp[price]" required>
-                            <div class="valid-feedback">
-                            Looks Good!
-                        </div>
-                        </div>
-                    </div>
+                    <div class="col-md-6 offset-md-3 my-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="/campgrounds/new" method="POST" novalidate class="validated-form"
+                                    enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="title">Title</label>
+                                        <input class="form-control" type="text" id="title" name="camp[title]" required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                    </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" for="location">Location</label>
-                        <input class="form-control" type="text" id="location" name="camp[location]" required>
-                        <div class="valid-feedback">
-                            Looks Good!
+                                    <div class="mb-3">
+                                        <label class="form-label mb-3" for="price">Rate</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="price-label">₹</span>
+                                            <input type="text" class="form-control" id="price" placeholder="0.00"
+                                                aria-label="price" aria-describedby="price-label" name="camp[price]"
+                                                required>
+                                            <div class="valid-feedback">
+                                                Looks Good!
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="location">Location</label>
+                                        <input class="form-control" type="text" id="location" name="camp[location]"
+                                            required>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label" for="description">Description</label>
+                                        <textarea class="form-control" type="text" id="description"
+                                            name="camp[description]" rows="3" required></textarea>
+                                        <div class="valid-feedback">
+                                            Looks Good!
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="mb-3">
+                                            <label for="image" class="form-label">Add Images</label>
+                                            <input class="form-control" type="file" name="camp[image]" id="image"
+                                                multiple>
+                                        </div>
+                                    </div>
+
+                                    <div class="my-3">
+                                        <button class="btn btn-outline-success">Add Campground</button>
+                                    </div>
+                                </form>
+
+                                <a href="/campgrounds">All Campgrounds</a>
+                            </div>
                         </div>
                     </div>
-        
-                    <div class="mb-3">
-                        <label class="form-label" for="description">Description</label>
-                        <textarea class="form-control" type="text" id="description" name="camp[description]" rows="3" required></textarea>
-                        <div class="valid-feedback">
-                            Looks Good!
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Add Images</label>
-                            <input class="form-control" type="file" name="camp[image]" id="image" multiple>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <button class="btn btn-success">Add Campground</button>
-                    </div>
-                </form>
-
-                <a href="/campgrounds">All Campgrounds</a>
-            </div>
         </div>
     </main>
 
@@ -71,4 +83,5 @@
         <%- include('../partials/footer'); %>
     </footer>
 </body>
+
 </html>

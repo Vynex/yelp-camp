@@ -1,5 +1,5 @@
 nav {
-    background-color: #212529;
+    background-color: #161B22;
     display: flex;
     /* justify-content: space-between; */
     align-items: center;
@@ -91,7 +91,7 @@ nav {
         height: 92vh;
         top: 8vh;
         width: 45%;
-        background-color: #212529;
+        background-color: #161B22;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -142,7 +142,7 @@ nav {
 }
 
 .footer {
-    background-color: #212529;
+    background-color: #161B22;
     color: #bbbbbb;
 
     padding: 10px 0;
