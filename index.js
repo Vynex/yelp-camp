@@ -27,6 +27,8 @@ const Joi = require('joi');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 const HandledError = require('./utils/HandledError');
 
@@ -45,14 +47,15 @@ app.use(methodOverride('_method'));
 app.use(flash());
 
 const sessionConfig = {
-    secret: "UsHgPVjQXz3fWgCb",
+    name: 'session',
+    secret: 'UsHgPVjQXz3fWgCb',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        // 1 Week
-        expires: Date.now() + 604800000,
-        maxAge: 604800000
+        // secure: true,
+        expires: Date.now() + 604800000,    // 1 Week
+        maxAge: 604800000                   // 1 Week
     }
 }
 app.use(session(sessionConfig));
@@ -60,6 +63,56 @@ app.use(session(sessionConfig));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+app.use(mongoSanitize({
+    replaceWith: '_'
+}));
+
+
+app.use(helmet());
+
+const scriptSrcUrls = [
+//     "https://api.tiles.mapbox.com/",
+    "https://api.mapbox.com/",
+    "https://cdn.jsdelivr.net",
+];
+const styleSrcUrls = [
+    "https://api.mapbox.com/",
+//     "https://api.tiles.mapbox.com/",
+    "https://fonts.googleapis.com/",
+    "https://cdn.jsdelivr.net",
+];
+const connectSrcUrls = [
+    "https://api.mapbox.com/",
+//     "https://a.tiles.mapbox.com/",
+//     "https://b.tiles.mapbox.com/",
+    "https://events.mapbox.com/",
+];
+const fontSrcUrls = [
+    "https://fonts.gstatic.com",
+];
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: [],
+            connectSrc: ["'self'", ...connectSrcUrls],
+            scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+            styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+            workerSrc: ["'self'", "blob:"],
+            objectSrc: [],
+            imgSrc: [
+                "'self'",
+                "blob:",
+                "data:",
+                "https://res.cloudinary.com/vinexilla/",
+                "https://images.unsplash.com",
+            ],
+            fontSrc: ["'self'", ...fontSrcUrls],
+        },
+    })
+);
+
 
 
 app.use((req, res, next) => {
