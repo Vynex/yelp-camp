@@ -9,8 +9,8 @@ const port = 3000;
 const path = require('path');
 
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:27017/yelp-camp',{
+const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+mongoose.connect(dbURL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -30,6 +30,8 @@ const flash = require('connect-flash');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 
+const MongoStore = require('connect-mongo')(session);
+
 const HandledError = require('./utils/HandledError');
 
 
@@ -46,9 +48,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(flash());
 
+const secret = process.env.SESSION_SECRET || 'secret';
+
+const store = new MongoStore({
+    url: dbURL,
+    secret,
+    touchAfter: 24 * 3600
+});
+
+store.on('error', function(err) {
+    console.log('Session Store Error', err);
+});
+
 const sessionConfig = {
+    store,
     name: 'session',
-    secret: 'UsHgPVjQXz3fWgCb',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {

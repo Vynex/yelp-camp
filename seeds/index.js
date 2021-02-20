@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Campground = require('../models/campground');
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp',{
+const dbURL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+mongoose.connect(dbURL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -28,7 +29,7 @@ const seed = async() => {
 
         const camp = new Campground ({
             title: `${randomArr(descriptors)} ${randomArr(places)}`,
-            author: '602cddbcaf3da431049db755',
+            author: '6030f840c34cdd4dc887e3b6',
             location: `${cities[randomCity].city}, ${cities[randomCity].state}`,
             description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error dolores voluptas maxime et in est, eligendi, omnis a esse enim amet soluta quos, cum consequuntur! Obcaecati dignissimos distinctio hic deleniti!',
             price,
